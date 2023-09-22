@@ -4,6 +4,7 @@
 
 {% block "content" %}
 <h1>My Projects:</h1>
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'project_create' %}">New Project</a>
 {% for project in projects %}
 <p><a href="{% url 'project' project.pk %}">{{ project.title }}</a></p>
 <hr>
