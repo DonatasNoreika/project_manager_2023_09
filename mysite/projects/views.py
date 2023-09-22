@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Project
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 # Create your views here.
@@ -37,3 +37,13 @@ class ProjectCreateView(LoginRequiredMixin, generic.CreateView):
         form.instance.responsible = self.request.user
         form.save()
         return super().form_valid(form)
+
+
+class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
+    model = Project
+    template_name = "project_delete.html"
+    context_object_name = "project"
+    success_url = "/userprojects/"
+
+    def test_func(self):
+        return self.get_object().responsible == self.request.user
