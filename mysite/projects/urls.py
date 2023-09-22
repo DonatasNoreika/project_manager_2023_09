@@ -4,7 +4,8 @@ from .views import (ProjectListView,
                     UserProjectListView,
                     ProjectCreateView,
                     ProjectDeleteView,
-                    ProjectUpdateView)
+                    ProjectUpdateView,
+                    JobCreateView)
 
 urlpatterns = [
     path('', ProjectListView.as_view(), name="projects"),
@@ -13,4 +14,5 @@ urlpatterns = [
     path('projects/create/', ProjectCreateView.as_view(), name="project_create"),
     path('projects/<int:pk>/delete/', ProjectDeleteView.as_view(), name="project_delete"),
     path('projects/<int:pk>/update/', ProjectUpdateView.as_view(), name="project_update"),
+    path('projects/<int:order_id>/createjob/', JobCreateView.as_view(), name="job_create"),
 ]

@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import reverse
 from django.views import generic
-from .models import Project
+from .models import Project, Job, Invoice
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
@@ -48,6 +48,7 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteV
     def test_func(self):
         return self.get_object().responsible == self.request.user
 
+
 class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Project
     template_name = 'project_form.html'
@@ -61,3 +62,22 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateV
 
     def test_func(self):
         return self.get_object().responsible == self.request.user
+
+
+class JobCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
+    model = Job
+    template_name = 'job_form.html'
+    fields = ['title', 'info', 'price']
+
+    def test_func(self):
+        project = Project.objects.get(pk=self.kwargs['order_id'])
+        return project.responsible == self.request.user
+
+    def get_success_url(self):
+        return reverse('project', kwargs={"pk": self.kwargs['order_id']})
+
+    def form_valid(self, form):
+        form.instance.project = Project.objects.get(pk=self.kwargs['order_id'])
+        form.save()
+        return super().form_valid(form)
+

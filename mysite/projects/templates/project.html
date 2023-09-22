@@ -15,6 +15,9 @@
     <li>{{ job.title }}</li>
     {% endfor %}
 </ol>
+<div>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'job_create' project.pk %}">Create Job</a>
+</div>
 <hr>
 <h4>Employees:</h4>
 <ul>
