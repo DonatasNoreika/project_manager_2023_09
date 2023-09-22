@@ -32,4 +32,7 @@
     <li>{{ invoice.date }}</li>
     {% endfor %}
 </ul>
+<div>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'invoice_create' project.pk %}">Create Invoice</a>
+</div>
 {% endblock %}

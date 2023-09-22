@@ -81,3 +81,20 @@ class JobCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView)
         form.save()
         return super().form_valid(form)
 
+
+class InvoiceCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
+    model = Invoice
+    template_name = 'invoice_form.html'
+    fields = ['date']
+
+    def test_func(self):
+        project = Project.objects.get(pk=self.kwargs['order_id'])
+        return project.responsible == self.request.user
+
+    def get_success_url(self):
+        return reverse('project', kwargs={"pk": self.kwargs['order_id']})
+
+    def form_valid(self, form):
+        form.instance.project = Project.objects.get(pk=self.kwargs['order_id'])
+        form.save()
+        return super().form_valid(form)
