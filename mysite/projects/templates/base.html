@@ -26,13 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="">HOME</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Automobiliai</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Užsakymai</a>
+                    <a class="nav-link" href="{% url 'projects' %}">HOME</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
@@ -47,17 +41,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Mano užsakymai</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Atsijungti</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="">Registruotis</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Prisijungti</a>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
                 {% endif %}
             </ul>
