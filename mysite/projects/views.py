@@ -9,3 +9,9 @@ class ProjectListView(generic.ListView):
     model = Project
     template_name = "projects.html"
     context_object_name = 'projects'
+
+
+class ProjectDetailView(generic.DetailView):
+    model = Project
+    template_name = "project.html"
+    context_object_name = "project"

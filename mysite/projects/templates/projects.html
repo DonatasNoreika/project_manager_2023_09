@@ -5,7 +5,7 @@
 {% block "content" %}
 <h1>Projects:</h1>
 {% for project in projects %}
-<p>{{ project.title }}</p>
+<p><a href="{% url 'project' project.pk %}">{{ project.title }}</a></p>
 <hr>
 {% endfor %}
 {% endblock %}
