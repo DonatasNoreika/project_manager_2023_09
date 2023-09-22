@@ -47,3 +47,17 @@ class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteV
 
     def test_func(self):
         return self.get_object().responsible == self.request.user
+
+class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    model = Project
+    template_name = 'project_form.html'
+    fields = ['title', 'deadline', 'client', 'employees']
+    success_url = "/userprojects/"
+
+    def form_valid(self, form):
+        form.instance.responsible = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.get_object().responsible == self.request.user
