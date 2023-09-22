@@ -98,3 +98,13 @@ class InvoiceCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateV
         form.instance.project = Project.objects.get(pk=self.kwargs['order_id'])
         form.save()
         return super().form_valid(form)
+
+
+class InvoiceDetailView(LoginRequiredMixin, UserPassesTestMixin, generic.DetailView):
+    model = Invoice
+    template_name = 'invoice.html'
+    context_object_name = "invoice"
+
+    def test_func(self):
+        project = Project.objects.get(pk=self.kwargs['order_id'])
+        return project.responsible == self.request.user

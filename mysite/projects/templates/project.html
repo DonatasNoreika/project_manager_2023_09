@@ -29,7 +29,7 @@
 <h4>Invoices:</h4>
 <ul>
     {% for invoice in project.invoices.all %}
-    <li>{{ invoice.date }}</li>
+    <li><a href="{% url 'invoice' project.pk invoice.pk %}">{{ invoice.date }}</a></li>
     {% endfor %}
 </ul>
 <div>
