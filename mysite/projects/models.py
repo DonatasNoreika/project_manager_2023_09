@@ -32,6 +32,11 @@ class Invoice(models.Model):
     date = models.DateField(verbose_name="Date")
     project = models.ForeignKey(to="Project", verbose_name="Project", on_delete=models.CASCADE, related_name="invoices")
 
+    def total(self):
+        total = 0
+        for job in self.project.jobs.all():
+            total += job.price
+        return total
 
 class Project(models.Model):
     title = models.CharField(verbose_name="Title", max_length=50)
